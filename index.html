@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お絵かき アプリ</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="https://kit.fontawesome.com/cd8deebb58.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+</head>
+
+<body>
+    <!-- タイトル文字 -->
+    <h1>Paint App</h1>
+
+    <section id="contents">
+        <!-- カメラ全体 -->
+        <div id="camera-wrapper">
+            <div class="canvas-parent" id="canvasParent">
+                <canvas id="paint"></canvas>
+            </div>
+            <!-- <canvas id="paint" width="842" height="595"></canvas> -->
+            <nav>
+                <ul id="color">
+                    <li id="red"><i class="fas fa-fill-drip"></i></li>
+                    <li id="pink"><i class="fas fa-fill-drip"></i></li>
+                    <li id="orange"><i class="fas fa-fill-drip"></i></li>
+                    <li id="blue"><i class="fas fa-fill-drip"></i></li>
+                    <li id="green"><i class="fas fa-fill-drip"></i></li>
+                    <li id="yellow"><i class="fas fa-fill-drip"></i></li>
+                    <li id="black"><i class="fas fa-fill-drip"></i></li>
+                </ul>
+                <ul id="size">
+                    <li><i class="fas fa-pen"></i></li>
+                    <li><i class="fas fa-pen"></i></li>
+                    <li><i class="fas fa-pen"></i></li>
+                    <li id="eraser"><i class="fas fa-eraser"></i></li>
+                    <!-- <li id="save"><i class="fas fa-download"></i></li> -->
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        //-----------------------------------------------------
+        // グローバル変数
+        //-----------------------------------------------------
+        let canvasParent = document.getElementById("canvasParent");
+        var canvas = document.getElementById('paint');
+
+        let WIDTH = 0;
+        let HEIGHT = 0;
+        let resize = () => {
+            canvas.width = canvasParent.clientWidth;
+            canvas.height = canvasParent.clientHeight;
+            WIDTH = canvasParent.clientWidth;
+            HEIGHT = canvasParent.clientHeight;
+        };
+
+// setInterval(() => resize(), 0);
+        //-----------------------------------------------------
+        // onload
+        //-----------------------------------------------------
+        window.onload = () => {
+            let no = 0;
+            resize();
+            // ペイント
+            let isTouch = ('ontouchstart' in window);
+            let drawFlag = false, 
+                oldX = 0,
+                oldY = 0;
+            let canvasX = $('#paint').offset().left;
+            let canvasY = $('#paint').offset().top;
+            let context = canvas.getContext("2d");
+            let penColor = "rgb(255,0,0)",
+                penSize = 2;
+            $('#color li#red').addClass('active');
+            $('#size li:nth-of-type(1)').addClass('active');
+            // context.fillStyle = '#ffffFF';
+            // context.fillRect(0, 0, WIDTH, 380);
+            context.beginPath();
+            context.fillStyle = 'rgb(255,255,255)';
+            context.fillRect(0, 0, WIDTH, HEIGHT);
+            context.lineCap = 'round';
+            context.lineJoin = 'round';
+
+
+            $('#paint').on({
+                'touchstart mousedown': function (e) {
+                    
+                    e.preventDefault();
+                    // resize();
+                    this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+                    this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+
+                    drawFlag = true;
+                    context.strokeStyle = penColor;
+                    context.lineWidth = penSize;
+
+                    var blurSize = Number(penSize) + 1
+                    context.shadowBlur = blurSize;
+                    //console.log(blurSize);
+                    /**/
+                    context.shadowColor = penColor;
+                    oldX = this.pageX - canvasX;
+                    oldY = this.pageY - canvasY;
+                    context.beginPath();
+                    context.moveTo(oldX, oldY);
+                },
+                'touchmove mousemove': function (e) {
+                    if (!drawFlag) return;
+                    e.preventDefault();
+                    var x = (isTouch ? event.changedTouches[0].pageX : e.pageX) - canvasX;
+                    var y = (isTouch ? event.changedTouches[0].pageY : e.pageY) - canvasY;
+
+                    context.lineTo(x, y);
+                    context.stroke();
+                    //context.closePath();
+                    //oldX = x;
+                    //oldY = y;
+                },
+                'touchend mouseup': function (e) {
+
+                    drawFlag = false;
+                }
+            });
+            //消しゴム
+            $("#eraser").on('touchstart mousedown', function (e) {
+                context.clearRect(0, 0, WIDTH, HEIGHT);
+                context.beginPath();
+                context.fillStyle = 'rgb(255,255,255)';
+                context.fillRect(0, 0, WIDTH, HEIGHT);
+            });
+
+            //線幅を変更
+            $("#size li").on('touchstart mousedown', function (e) {
+                // console.log($(this).index());
+                if($(this).index() != 3){
+                    $('#size li').removeClass('active');
+                }
+                if($(this).index() == 0){
+                    penSize = 2;
+                    $(this).addClass('active');
+                }else if($(this).index() == 1){
+                    penSize = 6;
+                    $(this).addClass('active');
+                }else if($(this).index() == 2){
+                    penSize = 14;
+                    $(this).addClass('active');
+                }                
+            });
+
+            //色を変更
+            $('#color li').on('touchstart mousedown', function (e) {
+                $('#color li').removeClass('active');
+                $(this).addClass('active');
+                penColor = $(this).css('color');
+            });
+
+        };
+    </script>
+</body>
+
+</html>
