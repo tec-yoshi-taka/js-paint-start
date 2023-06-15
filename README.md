@@ -13,6 +13,22 @@
 
 ---
 
+## 消しゴム機能を設定してみよう
+
+```Javascript
+//消しゴム
+eraser.addEventListener('mousedown', (e) => {
+  //画面をクリアする
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+  //塗りの色を指定する（白）
+  ctx.fillStyle = 'rgb(255,255,255)';
+  //四角形を描画する
+  ctx.fillRect(0, 0, WIDTH, HEIGHT);
+});
+```
+
+---
+
 ## 色を増やしてみよう
 
 ```HTML
@@ -20,11 +36,6 @@
 <li id="yellow"><i class="fas fa-fill-drip"></i></li>
 <li id="black"><i class="fas fa-fill-drip"></i></li>
 ```
-
-#### 今が 13 時の場合
-
-![アラートの表示](./img/alert.png)
-<br>
 
 ---
 
@@ -50,4 +61,22 @@ ctx.strokeStyle = penColor;
 ctx.lineWidth = penSize;
 //線のボケ具合
 ctx.shadowColor = penColor;
+```
+
+---
+
+## クリックで色を変更してみよう
+
+```javascript
+//色を変更
+colors.forEach((colorli) => {
+  colorli.addEventListener("mousedown", (e) => {
+    colors.forEach((clr) => {
+      clr.classList.remove("active");
+    });
+    colorli.classList.add("active");
+    style = window.getComputedStyle(e.target);
+    penColor = style.getPropertyValue("color");
+  });
+});
 ```

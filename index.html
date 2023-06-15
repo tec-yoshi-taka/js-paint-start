@@ -28,9 +28,11 @@
                 <li id="pink"><i class="fas fa-fill-drip"></i></li>
                 <li id="orange"><i class="fas fa-fill-drip"></i></li>
                 <li id="blue"><i class="fas fa-fill-drip"></i></li>
-                <li id="green"><i class="fas fa-fill-drip"></i></li>
-                <li id="yellow"><i class="fas fa-fill-drip"></i></li>
-                <li id="black"><i class="fas fa-fill-drip"></i></li>
+                <!-- 色を増やそう -->
+
+
+
+                <!-- 好きな色を増やそう -->
             </ul>
             <ul id="size">
                 <li><i class="fas fa-pen"></i></li>
@@ -76,7 +78,10 @@
                 oldY = 0;
             let canvasX = canvas.getBoundingClientRect().left + window.pageXOffset;
             let canvasY = canvas.getBoundingClientRect().top + window.pageYOffset;
-            let penColor = "rgb(255,0,0)", penSize = 2;
+            //ペンの色と太さを変数に代入してみよう
+            let penColor = "rgb(255,0,0)";
+            let penSize = 2;
+
             colors[0].classList.add('active');
             sizes[0].classList.add('active');
             // ctx.fillStyle = '#ffffFF';
@@ -93,12 +98,15 @@
                 pageY = (isTouch ? e.touches[0].pageY : e.pageY);
 
                 drawFlag = true;
-                ctx.strokeStyle = penColor;
-                ctx.lineWidth = penSize;
+                //線の色
+                ctx.strokeStyle = ;
+                //線の太さ
+                ctx.lineWidth = ;
+                //線のボケの色
+                ctx.shadowColor = ;
 
-                var blurSize = Number(penSize) + 1
+                let blurSize = Number(penSize) + 1
                 ctx.shadowBlur = blurSize;
-                ctx.shadowColor = penColor;
                 oldX = pageX - canvasX;
                 oldY = pageY - canvasY;
                 ctx.beginPath();
@@ -139,10 +147,8 @@
 
             //消しゴム
             eraser.addEventListener('mousedown', (e) => {
-                ctx.clearRect(0, 0, WIDTH, HEIGHT);
-                ctx.beginPath();
-                ctx.fillStyle = 'rgb(255,255,255)';
-                ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+
             });
 
             //線幅を変更
