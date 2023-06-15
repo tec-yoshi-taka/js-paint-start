@@ -79,8 +79,7 @@
             let canvasX = canvas.getBoundingClientRect().left + window.pageXOffset;
             let canvasY = canvas.getBoundingClientRect().top + window.pageYOffset;
             //ペンの色と太さを変数に代入してみよう
-            let penColor = "rgb(255,0,0)";
-            let penSize = 2;
+
 
             colors[0].classList.add('active');
             sizes[0].classList.add('active');
@@ -99,11 +98,11 @@
 
                 drawFlag = true;
                 //線の色
-                ctx.strokeStyle = ;
+
                 //線の太さ
-                ctx.lineWidth = ;
+
                 //線のボケの色
-                ctx.shadowColor = ;
+
 
                 let blurSize = Number(penSize) + 1
                 ctx.shadowBlur = blurSize;
@@ -174,16 +173,7 @@
             });
 
             //色を変更
-            colors.forEach((colorli) => {
-                colorli.addEventListener('mousedown', (e) => {
-                    colors.forEach((clr) => {
-                        clr.classList.remove('active');
-                    });
-                    colorli.classList.add('active');
-                    style = window.getComputedStyle(e.target);
-                    penColor = style.getPropertyValue('color');
-                });
-            });
+
         };
     </script>
 </body>

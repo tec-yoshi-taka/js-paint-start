@@ -52,6 +52,16 @@ ctx.shadowColor = "#ec5064";
 
 ---
 
+## ペンの色と太さを変数に代入してみよう
+
+```javascript
+//ペンの色と太さを変数に代入してみよう
+let penColor = "rgb(255,0,0)";
+let penSize = 2;
+```
+
+---
+
 ## 線の色や太さを変更できるようにしよう
 
 ```javascript
@@ -80,3 +90,27 @@ colors.forEach((colorli) => {
   });
 });
 ```
+
+---
+
+## さらにペンを増やす（HTML）
+
+```HTML
+<!-- 好きなの色を増やそう -->
+<li id="other"><i class="fas fa-fill-drip"></i></li>
+```
+
+## さらにペンを増やす（CSS）
+
+```css
+#color li#other {
+  background-color: お好きな色;
+}
+#color li#other.active,
+#color li#other:hover {
+  color: お好きな色;
+  background-color: #fff;
+}
+```
+
+---
