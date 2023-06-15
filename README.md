@@ -4,12 +4,18 @@
 
 ## 完成のリンク
 
-[完成イメージへのリンク](https://tec-yoshi-taka.github.io/js-paint-finish/)
+[完成へのリンク](https://tec-yoshi-taka.github.io/js-paint-finish/)
 <br><br>
 
 ---
 
-# Javascript のコードの部分はこちらを参照してください。
+## 資料
+
+[資料へのリンク](https://drive.google.com/file/d/1VRlSrcz8XDlrfgTHXIzb0Xhz4_bze7aO/view?usp=sharing)
+
+---
+
+## Javascript のコードの部分はこちらを参照してください。
 
 ---
 
