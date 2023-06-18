@@ -45,19 +45,6 @@ eraser.addEventListener('mousedown', (e) => {
 
 ---
 
-## 線の色や太さを指定する
-
-```javascript
-//線の色
-ctx.strokeStyle = "#ec5064";
-//線の太さ
-ctx.lineWidth = 2;
-//線のボケ具合
-ctx.shadowColor = "#ec5064";
-```
-
----
-
 ## ペンの色と太さを変数に代入してみよう
 
 ```javascript
